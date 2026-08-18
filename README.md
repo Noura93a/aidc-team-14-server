@@ -1,5 +1,13 @@
 # W1D3 afternoon: your team's server
 
+**The starter is here: https://github.com/avis3nna/aidc-team-server**
+
+Clone it, or copy the four files out of it into your own team repository.
+
+```bash
+git clone https://github.com/avis3nna/aidc-team-server.git
+```
+
 Only what you already have: Linux commands, Python's standard library, your team
 repository, one container. No `pip install`, no `curl`, no framework.
 
@@ -13,7 +21,7 @@ Add the three files from Discord on a branch, open a pull request, get one
 approval, merge.
 
 ```
-.gitignore   server.py   routes/_example.py
+.gitignore   server.py   register.py   routes/_example.py
 ```
 
 Everyone else is blocked until this lands, so do it first and tell your team.
@@ -102,6 +110,35 @@ Refresh the browser. The new endpoint is there. Nobody restarted anything and
 nobody touched anyone else's machine: the code travelled through GitHub.
 
 **Evidence:** `/` before and after, and confirmation the server kept running.
+
+---
+
+## Stage 5 · The board
+
+**https://aidc.nadir.sh**
+
+Nobody puts themselves on it. You register a teammate, and a teammate registers
+you, so agree who does whom before you start.
+
+Leave your server running. In the second terminal:
+
+```bash
+python /app/register.py
+```
+
+It fails. Open it, set `TEAMMATE`, `ME` and `TEAM`, run it again. It reads your
+teammate's endpoint off **your** server, so their route has to be merged and your
+server has to be running, and then it posts them to the board.
+
+Your team is finished when every member is on the board, put there by somebody
+else.
+
+**Two things will catch you.** The board sits behind Cloudflare, which rejects
+Python's default `User-Agent` with a 403; `register.py` already sets a real one,
+so delete it once to see what happens and put it back. And if you try to register
+yourself it will tell you so.
+
+**Evidence:** the board, with your whole team on it.
 
 ---
 
