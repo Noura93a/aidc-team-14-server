@@ -18,15 +18,17 @@ def load_routes():
             routes[mod.PATH] = mod.handle
     return routes
 
+
+ROUTES = load_routes()
+    
 class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
-        routes = load_routes()
         if self.path == "/":
-            self.reply(200, {"endpoints": sorted(routes) + ["/"]})
-        elif self.path in routes:
-            self.reply(200, routes[self.path]())
+            self.reply(200, {"endpoints": sorted(ROUTES) + ["/"]})
+        elif self.path in ROUTES:
+            self.reply(200, ROUTES[self.path]())
         else:
-            self.reply(404, {"error": "no such path", "try": sorted(routes)})
+            self.reply(404, {"error": "no such path", "try": sorted(ROUTES)})
 
     def reply(self, code, body):
         payload = json.dumps(body, indent=2).encode()
